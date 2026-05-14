@@ -1,14 +1,16 @@
 import { Text, View } from "react-native";
-import { styles } from './styled'
+import { styles } from "./styled";
+import { colors } from "@/styles/colors";
 
-export default function App() {
+export default function Index() {
   return (
-    <View>
-      <Text
-        style={styles.title}>
-        Hello, World ANDRE!
-      </Text>
+    <View
+      style={[
+        styles.container,
+        { backgroundColor: colors.gray[950] }
+      ]}
+    >
+      <Text style={styles.title}>Hello, World ANDRE!</Text>
     </View>
   );
 }
-

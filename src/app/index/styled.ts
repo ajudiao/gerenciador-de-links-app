@@ -1,9 +1,17 @@
-import { StyleSheet} from 'react-native'
-import { colors } from '../../styles/colors'
+import { StyleSheet } from 'react-native'
+import { colors } from '@/styles/colors'
 
 export const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        width: "100%",
+        backgroundColor: colors.gray[950],
+    },
 
-  title: {
-    color: colors.green[900],
-  }
+    title: {
+        color: colors.green[900],
+        fontSize: 22,
+    }
 })
