@@ -13,9 +13,14 @@ import {
 import { styles } from "./styled";
 import { Options } from "@/components/options";
 import { router } from "expo-router";
+import { useState } from "react";
+import { categories } from "@/utils/categories";
 
 
 export default function Index() {
+
+  const [category, setCategory] = useState(categories[0].name)
+
   return (
     <View style={[styles.container, { backgroundColor: colors.gray[950] }]}>
       <View style={styles.header}>
@@ -26,7 +31,7 @@ export default function Index() {
         </TouchableOpacity>
       </View>
 
-      <Categories />
+      <Categories onChange={setCategory} selected={category} />
 
       <FlatList
         data={["1", "2", "3"]}
