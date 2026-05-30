@@ -3,15 +3,18 @@ import { StyleSheet } from "react-native";
 
 
 export const styles = StyleSheet.create({
-    container: { 
+    container: {
         height: 52,
         width: "100%",
-        backgroundColor: colors.gray[900],
+        backgroundColor: colors.green[300],
         borderRadius: 8,
-        borderWidth: 1,
-        borderColor: colors.gray[800],
-        padding: 10,
+        justifyContent: "center",
+        alignItems: "center",
+    },
+
+    title: {
         color: colors.gray[800],
         fontSize: 16,
-    },
+        fontWeight: "600",
+    }
 })

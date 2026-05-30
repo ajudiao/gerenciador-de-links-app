@@ -5,6 +5,8 @@ import { colors } from "@/styles/colors";
 import { Text } from "react-native";
 import { router } from "expo-router";
 import { Categories } from "@/components/categories";
+import { Input } from "@/components/input";
+import { Button } from "@/components/button";
 
 export default function Add() {
   return (
@@ -18,6 +20,12 @@ export default function Add() {
       </View>
       <Text style={styles.label}>Selecione uma categoria</Text>
       <Categories />
+
+      <View style={styles.form}>
+        <Input placeholder="Nome" onChangeText={(value) => console.log(value)} />
+        <Input placeholder="Url" />
+        <Button title="Adicionar" />
+      </View>
     </View>
   );
 }
