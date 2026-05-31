@@ -1,4 +1,4 @@
-import { TouchableOpacity, View } from "react-native";
+import { Alert, TouchableOpacity, View } from "react-native";
 import { styles } from "./styles";
 import { MaterialIcons } from "@expo/vector-icons";
 import { colors } from "@/styles/colors";
@@ -16,9 +16,17 @@ export default function Add() {
   const [url, setUrl] = useState("");
 
   function handleAdd() {
-    console.log({
-      name, url
-    })
+      if(!category)
+          return Alert.alert('Categoria', 'Selecione a categoria')
+      
+      if (!name.trim())
+        return Alert.alert('Nome', 'informe um nome')
+
+       if (!name.trim())
+        return Alert.alert('URL', 'Informe a URL')
+
+       console.log("Dados certos")
+
   }
 
   return (
