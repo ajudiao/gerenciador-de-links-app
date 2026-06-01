@@ -8,25 +8,35 @@ import { Categories } from "@/components/categories";
 import { Input } from "@/components/input";
 import { Button } from "@/components/button";
 import { useState } from "react";
+import { LinkStorage } from "../storage/link-storage";
 
 export default function Add() {
-  const [category, setCategory] = useState();
+  const [category, setCategory] = useState("");
 
   const [name, setName] = useState("");
   const [url, setUrl] = useState("");
 
-  function handleAdd() {
-      if(!category)
-          return Alert.alert('Categoria', 'Selecione a categoria')
-      
-      if (!name.trim())
-        return Alert.alert('Nome', 'informe um nome')
+  async function handleAdd() {
+    try {
+      if (!category) return Alert.alert("Categoria", "Selecione a categoria");
 
-       if (!name.trim())
-        return Alert.alert('URL', 'Informe a URL')
+      if (!name.trim()) return Alert.alert("Nome", "informe um nome");
 
-       console.log("Dados certos")
+      if (!name.trim()) return Alert.alert("URL", "Informe a URL");
 
+      await LinkStorage.save({
+        id: new Date().getTime().toString(),
+        name,
+        url,
+        category,
+      })
+
+      // const data = await LinkStorage.get()
+      // console.log(data)
+
+    } catch (error) {
+      Alert.alert("Error", "Não foi possível salvar o link")
+    }
   }
 
   return (

@@ -9,17 +9,33 @@ import {
   TouchableOpacity,
   View,
   Text,
+  Alert,
 } from "react-native";
 import { styles } from "./styled";
 import { Options } from "@/components/options";
 import { router } from "expo-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { categories } from "@/utils/categories";
+import { LinkProps, LinkStorage } from "../storage/link-storage";
 
 
 export default function Index() {
-
+  const [links, setLinks] = useState<LinkProps[]>([])
   const [category, setCategory] = useState(categories[0].name)
+
+  async function  getLinks() {
+      try {
+        const response = await LinkStorage.get()
+
+      } catch (error) {
+          Alert.alert("Erro", "Não foi possível listar os links")
+      }
+  }
+
+  useEffect(() => {
+    getLinks()
+
+  }, [category])
 
   return (
     <View style={[styles.container, { backgroundColor: colors.gray[950] }]}>
@@ -34,12 +50,12 @@ export default function Index() {
       <Categories onChange={setCategory} selected={category} />
 
       <FlatList
-        data={["1", "2", "3"]}
-        keyExtractor={(item) => item}
-        renderItem={() => (
+        data={links}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
           <Link
-            name="Rockeseat"
-            url="jsjdjsd"
+            name={item.name}
+            url={item.url}
             onDetails={() => console.log("clicou")}
           />
         )}
