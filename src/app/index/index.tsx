@@ -13,13 +13,15 @@ import {
 } from "react-native";
 import { styles } from "./styled";
 import { Options } from "@/components/options";
-import { router } from "expo-router";
-import { useEffect, useState } from "react";
+import { router, useFocusEffect } from "expo-router";
+import { useEffect, useState, useCallback, use } from "react";
 import { categories } from "@/utils/categories";
 import { LinkProps, LinkStorage } from "../storage/link-storage";
 
 
 export default function Index() {
+  const [link, setLink] = useState<LinkProps>({} as LinkProps)
+  const [showModal, setShowModal] = useState(false)
   const [links, setLinks] = useState<LinkProps[]>([])
   const [category, setCategory] = useState(categories[0].name)
 
@@ -27,15 +29,22 @@ export default function Index() {
       try {
         const response = await LinkStorage.get()
 
+        const filtered = response.filter((link) => link.category === category)
+        setLinks(filtered)
+
       } catch (error) {
           Alert.alert("Erro", "Não foi possível listar os links")
       }
   }
 
-  useEffect(() => {
+  useFocusEffect(useCallback(() => {
     getLinks()
+  }, [category]))
 
-  }, [category])
+  function handleDetails(selected: LinkProps) {
+    setShowModal(true)
+    setLink(selected)
+  }
 
   return (
     <View style={[styles.container, { backgroundColor: colors.gray[950] }]}>
@@ -56,7 +65,7 @@ export default function Index() {
           <Link
             name={item.name}
             url={item.url}
-            onDetails={() => console.log("clicou")}
+            onDetails={() => handleDetails(item)}
           />
         )}
         style={styles.links}
@@ -64,12 +73,12 @@ export default function Index() {
         showsVerticalScrollIndicator={false}
       />
 
-      <Modal transparent visible={false}>
+      <Modal transparent visible={showModal} animationType="slide">
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
             <View style={styles.modalHeader}>
-              <Text style={styles.modalCategory}>Curso</Text>
-              <TouchableOpacity>
+              <Text style={styles.modalCategory}>{ link.category }</Text>
+              <TouchableOpacity onPress={() => setShowModal(false)}>
                 <MaterialIcons
                   name="close"
                   size={20}
@@ -78,8 +87,8 @@ export default function Index() {
               </TouchableOpacity>
             </View>
 
-            <Text style={styles.modalLinkName}>Rocketseat</Text>
-            <Text style={styles.modalUrl}>https://www.rocketseat.com.br</Text>
+            <Text style={styles.modalLinkName}>{ link.name }</Text>
+            <Text style={styles.modalUrl}>{ link.url }</Text>
           </View>
 
           <View style={styles.modalFooter}>

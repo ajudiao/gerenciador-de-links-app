@@ -9,7 +9,7 @@ export type LinkProps = {
     category: string
 }
 
-async function get(): Promise<Link[]> {
+async function get(): Promise<LinkProps[]> {
     try {
         const storage = await AsyncStorage.getItem(LINKS_STORAGE_KEY)
 
@@ -19,7 +19,7 @@ async function get(): Promise<Link[]> {
     }
 }
 
-async function save(newLink: Link) {
+async function save(newLink: LinkProps) {
     const storage = await get()
 
     const alreadyExists = storage.some(

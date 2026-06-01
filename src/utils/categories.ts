@@ -15,7 +15,7 @@ export const categories: Category[] = [
     },
     {
         id: "2",
-        name: "Proejectos",
+        name: "Projectos",
         icon: "folder",
     },
     {

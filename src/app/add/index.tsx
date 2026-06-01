@@ -18,11 +18,11 @@ export default function Add() {
 
   async function handleAdd() {
     try {
-      if (!category) return Alert.alert("Categoria", "Selecione a categoria");
+      if (!category) return Alert.alert("Categoria", "Selecione a categoria")
 
-      if (!name.trim()) return Alert.alert("Nome", "informe um nome");
+      if (!name.trim()) return Alert.alert("Nome", "informe um nome")
 
-      if (!name.trim()) return Alert.alert("URL", "Informe a URL");
+      if (!name.trim()) return Alert.alert("URL", "Informe a URL")
 
       await LinkStorage.save({
         id: new Date().getTime().toString(),
